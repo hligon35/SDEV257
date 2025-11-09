@@ -5,7 +5,10 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.box}>
-        <Text style={styles.boxText}>I'm in a box</Text>
+        <Text style={styles.boxText}>#1</Text>
+      </View>
+      <View style={styles.box}>
+        <Text style={styles.boxText}>#2</Text>
       </View>
     </View>
   );
