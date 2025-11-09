@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { View } from "react-native";
 import styles from "./styles";
 
-export default function Row({ children }) {
-  return <View style={styles.row}>{children}</View>;
+export default function Column({ children }) {
+  return <View style={styles.column}>{children}</View>;
 }
 
-Row.propTypes = {
+Column.propTypes = {
   children: PropTypes.node.isRequired,
 };
