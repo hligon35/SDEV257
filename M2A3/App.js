@@ -20,22 +20,17 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+
       <View style={styles.taskWrapper}>
         <Text style={styles.sectionTitle}>Today's Tasks</Text>
         
         <View style={styles.items}>
-          {
-            taskItems.map((item, index) => {
-              return (
-                <TouchableOpacity key={index} onPress={() => completeTask(index)}>
-                  <Tasks text={item} />
-                </TouchableOpacity>
-              )
-            }
+
+          {taskItems.map((item, index) => (
             <TouchableOpacity key={index} onPress={() => completeTask(index)}>
               <Tasks text={item} />
-              </TouchableOpacity>
-            ))}
+            </TouchableOpacity>
+          ))}
        {/* // <Tasks text={'Task 1'} />
           // <Tasks text={'Task 2'} /> */}
         </View>
@@ -79,7 +74,7 @@ const styles = StyleSheet.create({
     bottom: 60,
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
   input: {
