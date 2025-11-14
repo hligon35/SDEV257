@@ -1,32 +1,34 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from "react";
 import { Platform } from "react-native";
-import Home from "./Home";
-import News from "./News";
-import Settings from "./Settings";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
+import Planets from "./Planets";
+import Spaceships from "./Spaceships";
+import Films from "./Films";
+import Details from "./Details";
+
+const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
+
+function MainTabs() {
+  return (
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="Planets" component={Planets} />
+      <Tab.Screen name="Spaceships" component={Spaceships} />
+      <Tab.Screen name="Films" component={Films} />
+    </Tab.Navigator>
+  );
+}
 
 export default function App() {
   return (
     <NavigationContainer>
-      {Platform.OS === "ios" && (
-        <Tab.Navigator>
-          <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name="News" component={News} />
-          <Tab.Screen name="Settings" component={Settings} />
-        </Tab.Navigator>
-      )}
-
-      {Platform.OS == "android" && (
-        <Drawer.Navigator>
-          <Drawer.Screen name="Home" component={Home} />
-          <Drawer.Screen name="News" component={News} />
-          <Drawer.Screen name="Settings" component={Settings} />
-        </Drawer.Navigator>
-      )}
+      <Stack.Navigator>
+        <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
+        <Stack.Screen name="Details" component={Details} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
