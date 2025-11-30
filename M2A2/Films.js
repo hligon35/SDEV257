@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, FlatList, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import SearchHeader from "./SearchHeader";
 import styles from "./styles";
 
 export default function Films({ navigation }) {
@@ -26,6 +27,7 @@ export default function Films({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <SearchHeader />
       <FlatList
         data={data}
         renderItem={({ item }) => (
