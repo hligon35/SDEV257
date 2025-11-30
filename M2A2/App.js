@@ -1,6 +1,7 @@
 import React from "react";
 import { Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
@@ -24,11 +25,13 @@ function MainTabs() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
-        <Stack.Screen name="Details" component={Details} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
+          <Stack.Screen name="Details" component={Details} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }
