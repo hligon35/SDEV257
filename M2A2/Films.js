@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import { View, ScrollView, Text, TouchableOpacity, ActivityIndicator, Modal, Button } from "react-native";
+import { Swipeable } from "react-native-gesture-handler";
 import SearchHeader from "./SearchHeader";
 import styles from "./styles";
+import AnimatedItem from "./AnimatedItem";
 
 export default function Films({ navigation }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalText, setModalText] = useState("");
 
   useEffect(() => {
     fetch("https://www.swapi.tech/api/films")
@@ -28,16 +32,42 @@ export default function Films({ navigation }) {
   return (
     <View style={styles.container}>
       <SearchHeader />
-      <FlatList
-        data={data}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Details", { title: item.name, url: item.url })}
+      <ScrollView>
+        {data.map((item, i) => (
+          <Swipeable
+            key={item.key}
+            renderRightActions={() => (
+              <View style={{ justifyContent: "center", marginRight: 8 }}>
+                <Button
+                  title="Show"
+                  onPress={() => {
+                    setModalText(item.name);
+                    setModalVisible(true);
+                  }}
+                />
+              </View>
+            )}
           >
-            <Text style={styles.item}>{item.name}</Text>
-          </TouchableOpacity>
-        )}
-      />
+            <AnimatedItem delay={i * 30}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Details", { title: item.name, url: item.url })}
+              >
+                <Text style={styles.item}>{item.name}</Text>
+              </TouchableOpacity>
+            </AnimatedItem>
+          </Swipeable>
+        ))}
+      </ScrollView>
+
+      <Modal animationType="slide" visible={modalVisible} transparent={true}>
+        <View style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.4)", justifyContent: "center", alignItems: "center" }}>
+          <View style={{ backgroundColor: "white", padding: 20, borderRadius: 8, width: "80%", alignItems: "center" }}>
+            <Text style={{ fontWeight: "bold", marginBottom: 8 }}>Item</Text>
+            <Text style={{ marginBottom: 12 }}>{modalText}</Text>
+            <Button title="Close" onPress={() => setModalVisible(false)} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
