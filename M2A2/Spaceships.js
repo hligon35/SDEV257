@@ -3,6 +3,7 @@ import { View, ScrollView, Text, TouchableOpacity, ActivityIndicator, Modal, But
 import { Swipeable } from "react-native-gesture-handler";
 import SearchHeader from "./SearchHeader";
 import styles from "./styles";
+import AnimatedItem from "./AnimatedItem";
 
 export default function Spaceships({ navigation }) {
   const [data, setData] = useState([]);
@@ -32,7 +33,7 @@ export default function Spaceships({ navigation }) {
     <View style={styles.container}>
       <SearchHeader />
       <ScrollView>
-        {data.map((item) => (
+        {data.map((item, i) => (
           <Swipeable
             key={item.key}
             renderRightActions={() => (
@@ -47,11 +48,13 @@ export default function Spaceships({ navigation }) {
               </View>
             )}
           >
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Details", { title: item.name, url: item.url })}
-            >
-              <Text style={styles.item}>{item.name}</Text>
-            </TouchableOpacity>
+            <AnimatedItem delay={i * 30}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Details", { title: item.name, url: item.url })}
+              >
+                <Text style={styles.item}>{item.name}</Text>
+              </TouchableOpacity>
+            </AnimatedItem>
           </Swipeable>
         ))}
       </ScrollView>
