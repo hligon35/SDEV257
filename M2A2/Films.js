@@ -4,6 +4,7 @@ import { Swipeable } from "react-native-gesture-handler";
 import SearchHeader from "./SearchHeader";
 import styles from "./styles";
 import AnimatedItem from "./AnimatedItem";
+import LazyHeaderImage from "./LazyHeaderImage";
 
 export default function Films({ navigation }) {
   const [data, setData] = useState([]);
@@ -31,6 +32,7 @@ export default function Films({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <LazyHeaderImage style={{ height: 180 }} />
       <SearchHeader />
       <ScrollView>
         {data.map((item, i) => (
