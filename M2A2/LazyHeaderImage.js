@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { View, Image, ActivityIndicator, StyleSheet } from "react-native";
+import { header as headerImage } from "./assets";
 
-export default function LazyHeaderImage({ source = require("./assets/starwars1.jpg"), style }) {
+export default function LazyHeaderImage({ source = headerImage, style }) {
   const [loading, setLoading] = useState(true);
 
   return (
