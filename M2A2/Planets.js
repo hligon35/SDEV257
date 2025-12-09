@@ -33,10 +33,12 @@ export default function Planets({ navigation }) {
   if (loading) return <ActivityIndicator style={{ marginTop: 40 }} />;
 
   return (
-    <View style={styles.container}>
-      <LazyHeaderImage style={{ height: 180 }} />
-      <SearchHeader />
-      <ScrollView>
+    <>
+      <ScrollView contentContainerStyle={styles.container}>
+        <LazyHeaderImage style={{ height: 180 }} />
+        <SearchHeader />
+        
+        
         {data.map((item, i) => (
           <Swipeable
             key={item.key}
@@ -61,7 +63,7 @@ export default function Planets({ navigation }) {
             </AnimatedItem>
           </Swipeable>
         ))}
-      </ScrollView>
+        </ScrollView>
 
       <Modal animationType="slide" visible={modalVisible} transparent={true}>
         <View style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.4)", justifyContent: "center", alignItems: "center" }}>
@@ -72,6 +74,6 @@ export default function Planets({ navigation }) {
           </View>
         </View>
       </Modal>
-    </View>
+    </>
   );
 }
