@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { View, TextInput, Button, Modal, Text, StyleSheet } from "react-native";
 
-export default function SearchHeader() {
-  const [text, setText] = useState("");
+export default function SearchHeader({ value, onChangeText, onSearch }) {
+  const [internalText, setInternalText] = useState("");
   const [visible, setVisible] = useState(false);
 
+  const text = typeof value === "string" ? value : internalText;
+  const setText = typeof onChangeText === "function" ? onChangeText : setInternalText;
+
   function onSubmit() {
-    setVisible(true);
+    if (typeof onSearch === "function") {
+      onSearch(text);
+    } else {
+      setVisible(true);
+    }
   }
 
   return (
@@ -21,15 +28,17 @@ export default function SearchHeader() {
       />
       <Button title="Search" onPress={onSubmit} />
 
-      <Modal animationType="slide" visible={visible} transparent={true}>
-        <View style={styles.modalBackdrop}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>You searched for:</Text>
-            <Text style={styles.modalText}>{text || "(empty)"}</Text>
-            <Button title="Close" onPress={() => setVisible(false)} />
+      {!onSearch && (
+        <Modal animationType="slide" visible={visible} transparent={true}>
+          <View style={styles.modalBackdrop}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>You searched for:</Text>
+              <Text style={styles.modalText}>{text || "(empty)"}</Text>
+              <Button title="Close" onPress={() => setVisible(false)} />
+            </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
+      )}
     </View>
   );
 }
